@@ -1,5 +1,11 @@
 @import url('https://fonts.googleapis.com/css2?family=Inter:ital,opsz,wght@0,14..32,100..900;1,14..32,100..900&display=swap');
 
+:root {
+    --cor0: #0d0b6e;
+    --cor1: #05081f;
+    --cor2: #A1B0F3;
+    --cor3: #0f164b;
+}
 
 * {
     padding: 0;
@@ -7,7 +13,7 @@
 }
 
 header {
-    background-color:#0D54EE;
+    background-color:var(--cor0);
 }
 
 .menu {
@@ -22,10 +28,11 @@ header {
     align-items: center;
     padding: 10px 20px;
 }
+
 body {
     font-family:"Inter", sans-serif;
-    background-color:#0C0E13;
-    color:#A1B0F3;
+    background-color: var(--cor1);
+    color: var(--cor2);
 }
 
 main {
@@ -35,4 +42,26 @@ main {
 
 a {
     text-decoration: none;
+}
+
+#cursos > div {
+    display: flex;
+    gap: 20px;
+    width: 100%;
+}
+
+#cursos article {
+    flex: 1;
+    background-color: var(--cor3);
+    padding: 10px;
+    border: 3px solid var(--cor3);
+    border-radius: 20px;
+    display: flex;
+    flex-direction: column;
+}
+
+#cursos article img {
+    width: 100%;
+    height: 200px;
+    object-fit: cover;
 }
