@@ -5,6 +5,8 @@
     --cor1: #05081f;
     --cor2: #A1B0F3;
     --cor3: #0f164b;
+    --cor4: #4c5ac7;
+    --cor5: #8fbfe0;
 }
 
 * {
@@ -58,10 +60,27 @@ a {
     border-radius: 20px;
     display: flex;
     flex-direction: column;
+    gap: 10px;
 }
 
 #cursos article img {
     width: 100%;
     height: 200px;
     object-fit: cover;
+}
+
+#cursos article a {
+    background-color: var(--cor4);
+    color: var(--cor5);
+    padding: 7px;
+    border-radius: 20px;
+    text-align: center;
+}
+
+#cursos article span {
+    background-color: var(--cor0);
+    color: var(--cor5);
+    padding: 3px;
+    border-radius: 13px;
+    text-align: center;
 }
