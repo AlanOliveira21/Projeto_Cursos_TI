@@ -54,7 +54,11 @@ a {
     text-decoration: none;
 }
 
-
+#introducao img {
+    max-width: 100%;
+    border: 3px solid var(--cor4);
+    border-radius: 20px;
+}
 
 #cursos > div {
     display: flex;
@@ -107,7 +111,18 @@ a {
     text-align: center;
 }
 
+footer {
+    background-color: var(--cor0);
+    padding: 10px;
+    text-align: center;
+}
 
+footer ul {
+    list-style: none;
+    display: flex;
+    justify-content: center;
+    gap: 30px;
+}
 
 @media (max-width: 600px) {
     #cursos > div {
@@ -117,5 +132,14 @@ a {
     .container {
         flex-direction: column;
         gap: 10px;
+    }
+
+    main {
+        padding: 13px;
+    }
+
+    footer ul {
+        flex-direction: column;
+        gap: 5px;
     }
 }
