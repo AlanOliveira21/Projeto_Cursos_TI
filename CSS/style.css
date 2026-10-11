@@ -197,3 +197,69 @@ footer ul {
         gap: 5px;
     }
 }
+
+/*Detalhes dos cursos */
+.detalhes {
+    display: none;
+    margin-top: 12px;
+    padding: 10px;
+    border-top: 1px solid var(--cor4);
+}
+
+.detalhes.mostrar {
+    display: block;
+}
+
+.detalhes ul {
+    padding-left: 20px;
+}
+
+.detalhes li {
+    margin-bottom: 5px;
+}
+
+/*Páginas de cursos*/
+
+#listar-cursos {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 20px;
+}
+
+#listar-cursos div {
+    flex: 1 1 250px;
+    background-color: var(--cor3);
+    padding: 15px;
+    border: 2px solid var(--cor4);
+    border-radius: 15px;
+    transition: 0.5s;
+}
+
+#listar-cursos div:hover {
+    transform: translateY(-5px);
+    box-shadow: 0px 0px 10px var(--cor4);
+}
+
+#listar-cursos h3 {
+    color: var(--cor5);
+    margin-bottom: 10px;
+}
+
+#listar-cursos p {
+    margin-bottom: 8px;
+}
+
+#listar-cursos button {
+    background-color: var(--cor4);
+    color: var(--cor5);
+    border: none;
+    padding: 10px 15px;
+    border-radius: 8px;
+    cursor: pointer;
+    transition: 0.5s;
+}
+
+#listar-cursos button:hover {
+    background-color: var(--cor5);
+    color: var(--cor4);
+}
