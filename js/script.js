@@ -79,15 +79,40 @@ const cursos = [
 
 const listarCursos = document.getElementById("listar-cursos");
 const filtroNivel = document.getElementById("filtro-nivel");
+const buscaCurso = document.getElementById("busca-curso");
+const ordenarPreco = document.getElementById("ordenar-preco");
+
+function filtrarCursos(cursos) {
+    const nivelSelecionado = filtroNivel.value;
+    const termoBusca = buscaCurso.value.trim().toLowerCase();
+    const criterioOrdenacao = ordenarPreco.value;
+
+    let cursosOrdenados = [...cursos];
+    if (criterioOrdenacao === "menor") {
+        cursosOrdenados.sort((a, b) => a.preco - b.preco);
+    } else if (criterioOrdenacao === "maior") {
+        cursosOrdenados.sort((a, b) => b.preco - a.preco);
+    }
+
+    const cursosFiltrados = cursosOrdenados.filter(curso => 
+    (nivelSelecionado === "todos" || curso.nivel === nivelSelecionado) 
+    &&
+    (curso.nome.toLowerCase().includes(termoBusca))
+    );
+
+    mostrarCursos(cursosFiltrados);
+}
+
+ordenarPreco.addEventListener("change", function() {
+    filtrarCursos(cursos);
+});
+
+buscaCurso.addEventListener("input", function() {
+    filtrarCursos(cursos);
+});
 
 filtroNivel.addEventListener("change", function() {
-    const nivelSelecionado = filtroNivel.value;
-    if (nivelSelecionado === "todos") {
-        mostrarCursos(cursos);
-    } else {
-        const cursosFiltrados = cursos.filter(curso => curso.nivel === nivelSelecionado);
-        mostrarCursos(cursosFiltrados);
-    }
+    filtrarCursos(cursos);
 });
 
 if (!listarCursos) {
@@ -98,6 +123,15 @@ if (!listarCursos) {
 
 function mostrarCursos(listaCursos) {
     listarCursos.innerHTML = "";
+
+    const listaVazia = listaCursos.length === 0;
+    if (listaVazia) {
+        const mensagemVazia = document.createElement("p");
+        mensagemVazia.textContent = "Nenhum curso encontrado.";
+        mensagemVazia.classList.add("mensagem-vazia");
+        listarCursos.appendChild(mensagemVazia);
+        return;
+    }
 
     listaCursos.forEach(curso => {
     const card = document.createElement("div");
@@ -141,6 +175,3 @@ function mostrarCursos(listaCursos) {
     listarCursos.appendChild(card);
 });
 }
-
-
-
