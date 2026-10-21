@@ -81,6 +81,7 @@ const listarCursos = document.getElementById("listar-cursos");
 const filtroNivel = document.getElementById("filtro-nivel");
 const buscaCurso = document.getElementById("busca-curso");
 const ordenarPreco = document.getElementById("ordenar-preco");
+const quantidadeCursos = document.getElementById("quantidade-cursos");
 
 function filtrarCursos(cursos) {
     const nivelSelecionado = filtroNivel.value;
@@ -122,6 +123,17 @@ if (!listarCursos) {
 }
 
 function mostrarCursos(listaCursos) {
+    const total = listaCursos.length;
+    const quantidadeCursos = document.getElementById("quantidade-cursos");
+
+    if (total > 1) {
+        quantidadeCursos.textContent = `${total} cursos encontrados`;
+    } else if (total === 1) {
+        quantidadeCursos.textContent = `${total} curso encontrado` ;
+    }else {
+        quantidadeCursos.textContent = "Nenhum curso encontrado";
+    }
+
     listarCursos.innerHTML = "";
 
     const listaVazia = listaCursos.length === 0;
