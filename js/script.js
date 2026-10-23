@@ -13,15 +13,13 @@ itens.forEach(item => {
     lista.appendChild(li);
 });
 
-if (!conteudo) {
-    console.error("Elemento 'conteudo-frontend' não encontrado no DOM.");
-} else {
+if (conteudo) {
+
     conteudo.appendChild(lista);
 }
 
-if (!mostrarConteudo) {
-    console.error("Elemento 'btn-conteudo' não encontrado no DOM.");
-} else {   
+if (mostrarConteudo) {
+
     mostrarConteudo.addEventListener("click", function() {
         conteudo.classList.toggle("mostrar");
 
@@ -34,18 +32,15 @@ if (!mostrarConteudo) {
     });
 }
 
-if (!fechar) {
-    console.error("Elemento 'btn-voltar' não encontrado no DOM.");
-} else {
+if (fechar) {
     fechar.addEventListener("click", function() {
         mensagem.classList.toggle("mostrar");
         mensagem.textContent = "Inscrição realizada com sucesso!";
     });
 }
 
-if (!inscricao) {
-    console.error("Elemento 'btn-inscricao' não encontrado no DOM.");
-} else {
+if (inscricao) {
+   
     inscricao.addEventListener("click", function(evento) {
         evento.preventDefault();
         mensagem.classList.add("mostrar");
@@ -82,11 +77,14 @@ const filtroNivel = document.getElementById("filtro-nivel");
 const buscaCurso = document.getElementById("busca-curso");
 const ordenarPreco = document.getElementById("ordenar-preco");
 const quantidadeCursos = document.getElementById("quantidade-cursos");
+const filtroFavoritos = document.getElementById("filtro-favoritos");
+const cursosFavoritos = new Set();
 
 function filtrarCursos(cursos) {
     const nivelSelecionado = filtroNivel.value;
     const termoBusca = buscaCurso.value.trim().toLowerCase();
     const criterioOrdenacao = ordenarPreco.value;
+    const favoritosSelecionados = filtroFavoritos.value;
 
     let cursosOrdenados = [...cursos];
     if (criterioOrdenacao === "menor") {
@@ -99,23 +97,30 @@ function filtrarCursos(cursos) {
     (nivelSelecionado === "todos" || curso.nivel === nivelSelecionado) 
     &&
     (curso.nome.toLowerCase().includes(termoBusca))
+    &&
+    (favoritosSelecionados === "todos" || cursosFavoritos.has(curso.nome))
     );
 
     mostrarCursos(cursosFiltrados);
 }
 
-ordenarPreco.addEventListener("change", function() {
-    filtrarCursos(cursos);
-});
+if (ordenarPreco && buscaCurso && filtroNivel && filtroFavoritos) {
+    ordenarPreco.addEventListener("change", function() {
+        filtrarCursos(cursos);
+    });
 
-buscaCurso.addEventListener("input", function() {
-    filtrarCursos(cursos);
-});
+    buscaCurso.addEventListener("input", function() {
+        filtrarCursos(cursos);
+    });
 
-filtroNivel.addEventListener("change", function() {
-    filtrarCursos(cursos);
-});
+    filtroNivel.addEventListener("change", function() {
+        filtrarCursos(cursos);
+    });
 
+    filtroFavoritos.addEventListener("change", function() {
+        filtrarCursos(cursos);
+    });
+}
 if (!listarCursos) {
     console.error("Elemento 'listar-cursos' não encontrado no DOM.");
 }else { 
@@ -154,6 +159,24 @@ function mostrarCursos(listaCursos) {
     const botao = document.createElement("button");
     const detalhes = document.createElement("div");
     const listaConteudo = document.createElement("ul");
+    const botaoFavorito = document.createElement("button");
+
+    if (cursosFavoritos.has(curso.nome)) {
+        botaoFavorito.textContent = "★ Favorito";
+    } else {
+        botaoFavorito.textContent = "☆ Favoritar";
+    }
+
+    botaoFavorito.addEventListener("click", function() {
+        if (cursosFavoritos.has(curso.nome)) {
+            cursosFavoritos.delete(curso.nome);
+        }else {
+            cursosFavoritos.add(curso.nome);
+        }
+
+        console.log(cursosFavoritos);
+        filtrarCursos(cursos);
+    });
 
     curso.conteudo.forEach(item => {
         const li = document.createElement("li");
@@ -178,6 +201,7 @@ function mostrarCursos(listaCursos) {
     preco.textContent = `R$ ${curso.preco.toFixed(2)}`;
     botao.textContent = "Ver curso";
 
+    conteudo.appendChild(botaoFavorito);
     conteudo.appendChild(nome);
     conteudo.appendChild(nivel);
     conteudo.appendChild(preco);
